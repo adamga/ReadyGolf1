@@ -1,0 +1,18 @@
+<%- include('layout', { user: user }) %>
+<h2>Book a Tee Time</h2>
+<form method="post" action="/booking" class="mb-4">
+    <div class="mb-3">
+        <label for="date" class="form-label">Select a date:</label>
+        <input type="date" class="form-control" id="date" name="date" value="<%= selectedDate ? selectedDate : '' %>" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Show Available Times</button>
+</form>
+
+<% if (selectedDate && times) { %>
+    <h3>Available Tee Times for <%= selectedDate %></h3>
+    <ul class="list-group">
+        <% times.forEach(function(time) { %>
+            <li class="list-group-item"><%= time %></li>
+        <% }) %>
+    </ul>
+<% } %>

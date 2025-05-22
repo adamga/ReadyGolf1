@@ -31,6 +31,14 @@ app.use((req, res, next) => {
     next();
 });
 
+// Middleware to require login for protected routes
+function requireLogin(req, res, next) {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    next();
+}
+
 // Routes
 app.get('/', (req, res) => {
     res.render('home', { user: req.session.user });
@@ -100,6 +108,25 @@ app.post('/forgot-password', (req, res) => {
             res.render('forgot-password', { error: null, success: 'Password reset successfully. You can now log in.' });
         });
     });
+});
+
+app.get('/booking', requireLogin, (req, res) => {
+    res.render('booking', { user: req.session.user, selectedDate: null, times: null });
+});
+
+app.post('/booking', requireLogin, (req, res) => {
+    const { date } = req.body;
+    // Generate tee times from 8:00 to 16:00 in 20 min intervals
+    const times = [];
+    let start = 8 * 60; // 8:00 in minutes
+    let end = 16 * 60; // 16:00 in minutes
+    while (start <= end) {
+        const h = Math.floor(start / 60).toString().padStart(2, '0');
+        const m = (start % 60).toString().padStart(2, '0');
+        times.push(`${h}:${m}`);
+        start += 20;
+    }
+    res.render('booking', { user: req.session.user, selectedDate: date, times });
 });
 
 const PORT = process.env.PORT || 3000;

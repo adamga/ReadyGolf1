@@ -17,9 +17,5 @@
     "express": "^5.1.0",
     "express-session": "^1.18.1",
     "sqlite3": "^5.1.7"
-  },
-  "devDependencies": {
-    "chromedriver": "^137.0.2",
-    "selenium-webdriver": "^4.33.0"
   }
 }

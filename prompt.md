@@ -1,0 +1,1 @@
+I need to build and run user interface tests for this application, which is already running on http://localhost:3000/... I've never done this before, and I need to use selenium to do it... help me install and configure selenium on my machine, then help me write and execute the tests... do it with me interactively.

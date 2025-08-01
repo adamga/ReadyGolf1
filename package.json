@@ -5,18 +5,19 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/ui-test-final.js",
+    "test:ui": "node test/ui-test-final.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.2",
-    "chromedriver": "^137.0.3",
     "connect-sqlite3": "^0.9.16",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
+    "geckodriver": "^5.0.0",
     "selenium-webdriver": "^4.33.0",
     "sqlite3": "^5.1.7"
   },

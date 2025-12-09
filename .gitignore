@@ -1,2 +1,4 @@
 sessions
 node_modules/
+test/test.db
+*.db-journal

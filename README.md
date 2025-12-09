@@ -12,3 +12,20 @@ ReadyGolf1 is a Node.js web application for booking golf tee times. It features:
 3. Visit `http://localhost:3000` in your browser
 
 Log in or register to book tee times!
+
+## Running Tests
+This project includes comprehensive unit tests using Mocha, Chai, and Supertest.
+
+To run the test suite:
+```bash
+npm test
+```
+
+The tests cover:
+- All route handlers (home, privacy, login, register, logout, booking, forgot-password)
+- Authentication and password management
+- Session management
+- Tee time generation logic
+- Protected route middleware
+
+Tests are automatically run against a separate test database that is created and cleaned up for each test.

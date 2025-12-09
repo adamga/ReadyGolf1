@@ -1,32 +1,53 @@
+<!--
+    Layout Template (layout.ejs)
+    
+    This is the main layout template used by all pages in the ReadyGolf1 application.
+    It provides:
+    - HTML document structure with Bootstrap CSS
+    - Navigation bar with responsive menu
+    - Conditional display of menu items based on authentication state
+    - User greeting when logged in
+    - Dynamic content area using EJS body variable
+-->
 <!DOCTYPE html>
 <html>
 <head>
     <title>ReadyGolf1 - Tee Time Booking</title>
+    <!-- Bootstrap CSS for styling and responsive layout -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
+    <!-- Top Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
+            <!-- Site Logo/Brand -->
             <a class="navbar-brand" href="/">ReadyGolf1</a>
             <div class="collapse navbar-collapse">
+                <!-- Left side navigation links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <!-- Booking link only shown when user is logged in -->
                     <% if (user) { %>
                         <li class="nav-item"><a class="nav-link" href="/booking">Booking</a></li>
                     <% } %>
                 </ul>
+                <!-- Right side navigation links (authentication) -->
                 <ul class="navbar-nav">
                     <% if (user) { %>
+                        <!-- Show username and logout link for authenticated users -->
                         <li class="nav-item"><span class="nav-link">Hello, <%= user.username %></span></li>
                         <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
                     <% } else { %>
+                        <!-- Show login link for guests -->
                         <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
                     <% } %>
                 </ul>
             </div>
         </div>
     </nav>
+    <!-- Main Content Container -->
     <div class="container mt-4">
+        <!-- Dynamic page content injected here by child templates -->
         <%- typeof body !== 'undefined' ? body : '' %>
     </div>
 </body>

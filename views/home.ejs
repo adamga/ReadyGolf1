@@ -1,6 +1,21 @@
+<!--
+    Home Page (home.ejs)
+    
+    The landing page for ReadyGolf1.
+    Displays:
+    - Welcome message and site description
+    - Login and Register buttons for guests
+    - Access to booking functionality for authenticated users (via nav menu)
+-->
 <%- include('layout', { user: user }) %>
+
+<!-- Welcome Header -->
 <h1>Welcome to ReadyGolf1</h1>
+
+<!-- Site Description -->
 <p>ReadyGolf1 is your preferred tee time booking site. Log in or register to get started booking your next round!</p>
+
+<!-- Call-to-Action Buttons (only shown when not logged in) -->
 <% if (!user) { %>
     <a href="/login" class="btn btn-primary">Log In</a>
     <a href="/register" class="btn btn-secondary">Register</a>

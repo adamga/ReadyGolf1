@@ -1,17 +1,37 @@
+<!--
+    Booking Page (booking.ejs)
+    
+    Tee time booking interface (requires authentication).
+    Features:
+    - Date picker for selecting booking date
+    - Displays available tee times after date selection
+    - Shows times from 8:00 AM to 4:00 PM in 20-minute intervals
+    
+    Form submits to POST /booking
+-->
 <%- include('layout', { user: user }) %>
+
+<!-- Page Header -->
 <h2>Book a Tee Time</h2>
+
+<!-- Date Selection Form -->
 <form method="post" action="/booking" class="mb-4">
+    <!-- Date Input Field -->
     <div class="mb-3">
         <label for="date" class="form-label">Select a date:</label>
         <input type="date" class="form-control" id="date" name="date" value="<%= selectedDate ? selectedDate : '' %>" required>
     </div>
+    <!-- Submit Button -->
     <button type="submit" class="btn btn-primary">Show Available Times</button>
 </form>
 
+<!-- Available Tee Times Section (only shown after date is selected) -->
 <% if (selectedDate && times) { %>
     <h3>Available Tee Times for <%= selectedDate %></h3>
+    <!-- List of available tee times -->
     <ul class="list-group">
         <% times.forEach(function(time) { %>
+            <!-- Each tee time displayed as a list item -->
             <li class="list-group-item"><%= time %></li>
         <% }) %>
     </ul>

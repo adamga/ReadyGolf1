@@ -1,16 +1,36 @@
+<!--
+    Registration Page (register.ejs)
+    
+    New user registration form.
+    Features:
+    - Username and password input fields
+    - Error message display (e.g., username already taken)
+    - Automatic login after successful registration
+    
+    Form submits to POST /register
+-->
 <%- include('layout', { user: user }) %>
+
+<!-- Page Header -->
 <h2>Register</h2>
+
+<!-- Error Alert (displayed when registration fails) -->
 <% if (typeof error !== 'undefined') { %>
     <div class="alert alert-danger"><%= error %></div>
 <% } %>
+
+<!-- Registration Form -->
 <form method="post" action="/register">
+    <!-- Username Field -->
     <div class="mb-3">
         <label for="username" class="form-label">Username</label>
         <input type="text" class="form-control" id="username" name="username" required>
     </div>
+    <!-- Password Field -->
     <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" id="password" name="password" required>
     </div>
+    <!-- Submit Button -->
     <button type="submit" class="btn btn-primary">Register</button>
 </form>

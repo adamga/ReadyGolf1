@@ -186,7 +186,16 @@ app.get('/forgot-password', (req, res) => {
 /**
  * POST /forgot-password - Handle Password Reset Form Submission
  * Allows users to reset their password by providing their username and new password.
- * Note: In production, this should be secured with email verification.
+ * 
+ * ⚠️ SECURITY WARNING: This is a simplified implementation for demonstration purposes.
+ * In production, this endpoint has a critical security flaw: it allows anyone who knows
+ * a username to reset that user's password without any identity verification.
+ * 
+ * Production implementation should:
+ * - Send a password reset link via email with a time-limited token
+ * - Verify user identity through email confirmation
+ * - Implement rate limiting to prevent brute force attacks
+ * - Log password reset attempts for security monitoring
  */
 app.post('/forgot-password', (req, res) => {
     const { username, newPassword } = req.body;
@@ -228,23 +237,30 @@ app.get('/booking', requireLogin, (req, res) => {
 /**
  * POST /booking - Generate Available Tee Times (Protected Route)
  * Processes the selected date and generates available tee times.
- * Tee times are generated from 8:00 AM to 4:00 PM in 20-minute intervals.
+ * 
+ * Business hours: 8:00 AM to 4:00 PM with 20-minute intervals.
+ * Note: For easier maintenance, these values could be extracted to configuration constants.
  */
 app.post('/booking', requireLogin, (req, res) => {
     const { date } = req.body;
     
+    // Business hours configuration (could be moved to constants for easier adjustment)
+    const BOOKING_START_HOUR = 8;      // 8:00 AM
+    const BOOKING_END_HOUR = 16;       // 4:00 PM
+    const INTERVAL_MINUTES = 20;       // 20-minute intervals
+    
     // Generate tee times from 8:00 to 16:00 in 20 minute intervals
     const times = [];
-    let start = 8 * 60;  // 8:00 AM in minutes (8 * 60 = 480 minutes)
-    let end = 16 * 60;   // 4:00 PM in minutes (16 * 60 = 960 minutes)
+    let start = BOOKING_START_HOUR * 60;  // Convert start hour to minutes
+    let end = BOOKING_END_HOUR * 60;      // Convert end hour to minutes
     
-    // Loop through time slots in 20-minute increments
+    // Loop through time slots in configured increments
     while (start <= end) {
         // Convert minutes back to hours and minutes
         const h = Math.floor(start / 60).toString().padStart(2, '0');  // Hours with leading zero
         const m = (start % 60).toString().padStart(2, '0');            // Minutes with leading zero
         times.push(`${h}:${m}`);
-        start += 20;  // Increment by 20 minutes
+        start += INTERVAL_MINUTES;  // Increment by configured interval
     }
     
     // Render the booking page with the selected date and available times
